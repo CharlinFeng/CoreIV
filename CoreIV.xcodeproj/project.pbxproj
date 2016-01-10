@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8980BC571C13D0BE007879D5 /* NewsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8980BC561C13D0BE007879D5 /* NewsTVC.m */; };
 		89D4EAB61C098B0600F81377 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D4EAB51C098B0600F81377 /* main.m */; };
 		89D4EAB91C098B0600F81377 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D4EAB81C098B0600F81377 /* AppDelegate.m */; };
 		89D4EABC1C098B0600F81377 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D4EABB1C098B0600F81377 /* ViewController.m */; };
@@ -52,6 +53,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8980BC551C13D0BE007879D5 /* NewsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsTVC.h; sourceTree = "<group>"; };
+		8980BC561C13D0BE007879D5 /* NewsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsTVC.m; sourceTree = "<group>"; };
 		89D4EAB11C098B0600F81377 /* CoreIV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreIV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89D4EAB51C098B0600F81377 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		89D4EAB71C098B0600F81377 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -171,6 +174,8 @@
 				89D4EAB81C098B0600F81377 /* AppDelegate.m */,
 				89D4EABA1C098B0600F81377 /* ViewController.h */,
 				89D4EABB1C098B0600F81377 /* ViewController.m */,
+				8980BC551C13D0BE007879D5 /* NewsTVC.h */,
+				8980BC561C13D0BE007879D5 /* NewsTVC.m */,
 				89D4EABD1C098B0600F81377 /* Main.storyboard */,
 				89D4EAC01C098B0600F81377 /* Assets.xcassets */,
 				89D4EAC21C098B0600F81377 /* LaunchScreen.storyboard */,
@@ -393,6 +398,7 @@
 				89D4EB801C098DD300F81377 /* DGActivityIndicatorBallClipRotatePulseAnimation.m in Sources */,
 				89D4EB9B1C098DD300F81377 /* DGActivityIndicatorTriplePulseAnimation.m in Sources */,
 				89D4EAB61C098B0600F81377 /* main.m in Sources */,
+				8980BC571C13D0BE007879D5 /* NewsTVC.m in Sources */,
 				89D4EB941C098DD300F81377 /* DGActivityIndicatorLineScalePulseOutRapidAnimation.m in Sources */,
 				89D4EB8F1C098DD300F81377 /* DGActivityIndicatorDoubleBounceAnimation.m in Sources */,
 				89D4EB851C098DD300F81377 /* DGActivityIndicatorBallRotateAnimation.m in Sources */,
@@ -546,6 +552,7 @@
 				89D4EACA1C098B0600F81377 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

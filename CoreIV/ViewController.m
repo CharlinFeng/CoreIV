@@ -19,10 +19,10 @@
     [super viewDidLoad];
     
     
-    [CoreIV showWithType:IVTypeError view:self.view msg:@"无网络" failClickBlock:^{
-        
-        NSLog(@"重新加载");
-    }];
+//    [CoreIV showWithType:IVTypeError view:self.view msg:@"无网络" failClickBlock:^{
+//        
+//        NSLog(@"重新加载");
+//    }];
     
 }
 
