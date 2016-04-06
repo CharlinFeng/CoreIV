@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8925A1FF1CB4A64700588CE9 /* CoreIV.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8925A1FE1CB4A64700588CE9 /* CoreIV.bundle */; };
 		8980BC571C13D0BE007879D5 /* NewsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8980BC561C13D0BE007879D5 /* NewsTVC.m */; };
 		89D4EAB61C098B0600F81377 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D4EAB51C098B0600F81377 /* main.m */; };
 		89D4EAB91C098B0600F81377 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D4EAB81C098B0600F81377 /* AppDelegate.m */; };
@@ -53,6 +54,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8925A1FE1CB4A64700588CE9 /* CoreIV.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CoreIV.bundle; sourceTree = "<group>"; };
 		8980BC551C13D0BE007879D5 /* NewsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsTVC.h; sourceTree = "<group>"; };
 		8980BC561C13D0BE007879D5 /* NewsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsTVC.m; sourceTree = "<group>"; };
 		89D4EAB11C098B0600F81377 /* CoreIV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreIV.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -207,6 +209,7 @@
 		89D4EB351C098DD200F81377 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				8925A1FE1CB4A64700588CE9 /* CoreIV.bundle */,
 				89D4EB361C098DD200F81377 /* DGActivityIndicatorView */,
 			);
 			path = Lib;
@@ -355,6 +358,7 @@
 			files = (
 				89D4EAC41C098B0600F81377 /* LaunchScreen.storyboard in Resources */,
 				89D4EAC11C098B0600F81377 /* Assets.xcassets in Resources */,
+				8925A1FF1CB4A64700588CE9 /* CoreIV.bundle in Resources */,
 				89D4EABF1C098B0600F81377 /* Main.storyboard in Resources */,
 				89D4EBA31C098F6400F81377 /* CoreIV.xib in Resources */,
 			);
@@ -516,6 +520,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CoreIV/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ShiDian.CoreIV;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -527,6 +532,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CoreIV/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ShiDian.CoreIV;
 				PRODUCT_NAME = "$(TARGET_NAME)";
