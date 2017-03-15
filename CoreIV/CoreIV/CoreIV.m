@@ -55,10 +55,7 @@
     
     [CoreIV dismissFromView:view animated:NO];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        
-        
+    if ([NSThread isMainThread]) {
         //创建view
         CoreIV *iv = [CoreIV iv];
         
@@ -70,13 +67,31 @@
         [view addSubview:iv];
         
         [iv autoLayoutFillSuperView];
-    });
+    }else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            
+            
+            //创建view
+            CoreIV *iv = [CoreIV iv];
+            
+            //设置
+            iv.type = type;
+            iv.msgLabel.text = msg;
+            iv.FailBlock = failClickBlock;
+            
+            [view addSubview:iv];
+            
+            [iv autoLayoutFillSuperView];
+        });
+    }
+    
+    
 }
 
 /** 消失 */
 +(void)dismissFromView:(UIView *)view animated:(BOOL)animated{
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
+    if ([NSThread isMainThread]) {
         for (UIView *subView in view.subviews) {
             
             if(![subView isKindOfClass:[CoreIV class]]) continue;
@@ -92,7 +107,26 @@
             }
             
         }
-    });
+    }else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            for (UIView *subView in view.subviews) {
+                
+                if(![subView isKindOfClass:[CoreIV class]]) continue;
+                
+                if(animated){
+                    [UIView animateWithDuration:0.3 animations:^{
+                        subView.alpha=0;
+                    } completion:^(BOOL finished) {
+                        [(CoreIV *)subView dismiss];return;
+                    }];
+                }else{
+                    [(CoreIV *)subView dismiss];break;
+                }
+                
+            }
+        });
+    }
+    
 }
 
 
@@ -111,12 +145,13 @@
     if(type == IVTypeLoad) {
         
         DGActivityIndicatorView *di_temp = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallBeat tintColor:tintColor size:size];
-
+        
         di = di_temp;
         
     }else {
         
-        di = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CoreIV.bundle/smile_failed"]];
+        di = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_share_gray"]];
+        di.contentMode = UIViewContentModeScaleAspectFit;
     }
     
     //记录
@@ -138,21 +173,43 @@
 }
 
 -(void)dismiss {
-    
-    if(self.type == IVTypeLoad){
-    
-        DGActivityIndicatorView *di_temp = (DGActivityIndicatorView *)self.di;
+    if ([NSThread isMainThread]) {
+        if(self.type == IVTypeLoad){
+            
+            DGActivityIndicatorView *di_temp = (DGActivityIndicatorView *)self.di;
+            
+            [di_temp stopAnimating];
+        }
         
-        [di_temp stopAnimating];
+        [self.di removeFromSuperview];
+        [self removeFromSuperview];
+    }else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(self.type == IVTypeLoad){
+                
+                DGActivityIndicatorView *di_temp = (DGActivityIndicatorView *)self.di;
+                
+                [di_temp stopAnimating];
+            }
+            
+            [self.di removeFromSuperview];
+            [self removeFromSuperview];
+        });
     }
     
-    [self.di removeFromSuperview];
-    [self removeFromSuperview];
 }
 
 -(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
+    
+    
     if(self.FailBlock != nil) self.FailBlock();
+    
+    self.userInteractionEnabled = NO;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.userInteractionEnabled = YES;
+    });
 }
 
 @end
