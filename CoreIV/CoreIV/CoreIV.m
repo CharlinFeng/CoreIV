@@ -8,7 +8,7 @@
 
 #import "CoreIV.h"
 #import "DGActivityIndicatorView.h"
-
+#import "UIView+CoreListLayout.h"
 
 @implementation UIView (layout)
 
@@ -37,6 +37,8 @@
 
 @property (nonatomic,assign) IVType type;
 
+@property (nonatomic,assign) BOOL isBlack;
+
 @property (nonatomic,weak) UIView *di;
 
 @property (nonatomic,copy) void (^FailBlock)();
@@ -55,9 +57,12 @@
     
     [CoreIV dismissFromView:view animated:NO];
     
-    if ([NSThread isMainThread]) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
         //创建view
         CoreIV *iv = [CoreIV iv];
+        
+        
         
         //设置
         iv.type = type;
@@ -67,33 +72,49 @@
         [view addSubview:iv];
         
         [iv autoLayoutFillSuperView];
-    }else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            
-            
-            //创建view
-            CoreIV *iv = [CoreIV iv];
-            
-            //设置
-            iv.type = type;
-            iv.msgLabel.text = msg;
-            iv.FailBlock = failClickBlock;
-            
-            [view addSubview:iv];
-            
-            [iv autoLayoutFillSuperView];
-        });
-    }
-    
-    
+    });
 }
+
+/** 展示 */
++(void)showWithType:(IVType)type view:(UIView *)view msg:(NSString *)msg isBlack:(BOOL)isBlack failClickBlock:(void(^)())failClickBlock{
+    
+    [CoreIV dismissFromView:view animated:NO];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        //创建view
+        CoreIV *iv = [CoreIV iv];
+        
+        iv.isBlack = isBlack;
+        
+        if (isBlack) {
+            
+            iv.backgroundColor = [UIColor colorWithRed:32/255. green:32/255. blue:50/255. alpha:1];
+            
+        }else {
+            
+            iv.backgroundColor = [UIColor whiteColor];
+        }
+        
+        //设置
+        iv.type = type;
+        iv.msgLabel.text = msg;
+        iv.FailBlock = failClickBlock;
+        
+        [view addSubview:iv];
+        
+        [iv autoLayoutFillSuperView];
+    });
+}
+
 
 /** 消失 */
 +(void)dismissFromView:(UIView *)view animated:(BOOL)animated{
-    if ([NSThread isMainThread]) {
+    
+    __block NSInteger i = 0;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
         for (UIView *subView in view.subviews) {
-            
             if(![subView isKindOfClass:[CoreIV class]]) continue;
             
             if(animated){
@@ -105,28 +126,16 @@
             }else{
                 [(CoreIV *)subView dismiss];break;
             }
-            
+            i++;
         }
-    }else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            for (UIView *subView in view.subviews) {
-                
-                if(![subView isKindOfClass:[CoreIV class]]) continue;
-                
-                if(animated){
-                    [UIView animateWithDuration:0.3 animations:^{
-                        subView.alpha=0;
-                    } completion:^(BOOL finished) {
-                        [(CoreIV *)subView dismiss];return;
-                    }];
-                }else{
-                    [(CoreIV *)subView dismiss];break;
-                }
-                
-            }
-        });
-    }
+    });
     
+    //    if (i == 0) {
+    //
+    //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    //            [self dismissFromView:view animated:animated];
+    //        });
+    //    }
 }
 
 
@@ -139,20 +148,24 @@
 -(void)setType:(IVType)type {
     
     UIColor *tintColor = [UIColor grayColor];
-    CGFloat size = 50;
+    CGFloat size = 71;
     
     UIView *di = nil;
     if(type == IVTypeLoad) {
         
-        DGActivityIndicatorView *di_temp = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallBeat tintColor:tintColor size:size];
+        DGActivityIndicatorView *di_temp = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallBeat tintColor:tintColor size:50];
         
         di = di_temp;
         
     }else {
         
-        di = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_share_gray"]];
-        di.contentMode = UIViewContentModeScaleAspectFit;
+        //        NSString *imgName = self.isBlack ? @"no_data" : @"CoreIV.bundle/smile_failed";
+        NSString *imgName = @"rabbit";
+        di = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imgName]];
     }
+    
+    //    UIColor *color = self.isBlack ? [UIColor colorWithRed:121/255. green:121/255. blue:121/255. alpha:1] : [UIColor darkGrayColor];
+    //    self.msgLabel.textColor = color;
     
     //记录
     self.di = di;
@@ -173,43 +186,21 @@
 }
 
 -(void)dismiss {
-    if ([NSThread isMainThread]) {
-        if(self.type == IVTypeLoad){
-            
-            DGActivityIndicatorView *di_temp = (DGActivityIndicatorView *)self.di;
-            
-            [di_temp stopAnimating];
-        }
+    
+    if(self.type == IVTypeLoad){
         
-        [self.di removeFromSuperview];
-        [self removeFromSuperview];
-    }else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if(self.type == IVTypeLoad){
-                
-                DGActivityIndicatorView *di_temp = (DGActivityIndicatorView *)self.di;
-                
-                [di_temp stopAnimating];
-            }
-            
-            [self.di removeFromSuperview];
-            [self removeFromSuperview];
-        });
+        DGActivityIndicatorView *di_temp = (DGActivityIndicatorView *)self.di;
+        
+        [di_temp stopAnimating];
     }
     
+    [self.di removeFromSuperview];
+    [self removeFromSuperview];
 }
 
 -(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
-    
-    
     if(self.FailBlock != nil) self.FailBlock();
-    
-    self.userInteractionEnabled = NO;
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.userInteractionEnabled = YES;
-    });
 }
 
 @end
