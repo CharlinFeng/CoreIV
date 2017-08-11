@@ -57,7 +57,8 @@
     
     [CoreIV dismissFromView:view animated:NO];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
+    if ([NSThread mainThread]) {
+        
         
         //创建view
         CoreIV *iv = [CoreIV iv];
@@ -72,7 +73,28 @@
         [view addSubview:iv];
         
         [iv autoLayoutFillSuperView];
-    });
+        
+    }else {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            //创建view
+            CoreIV *iv = [CoreIV iv];
+            
+            
+            
+            //设置
+            iv.type = type;
+            iv.msgLabel.text = msg;
+            iv.FailBlock = failClickBlock;
+            
+            [view addSubview:iv];
+            
+            [iv autoLayoutFillSuperView];
+        });
+    }
+    
+    
 }
 
 /** 展示 */
@@ -80,7 +102,7 @@
     
     [CoreIV dismissFromView:view animated:NO];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
+    if([NSThread isMainThread]) {
         
         //创建view
         CoreIV *iv = [CoreIV iv];
@@ -104,7 +126,38 @@
         [view addSubview:iv];
         
         [iv autoLayoutFillSuperView];
-    });
+        
+    }else {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            //创建view
+            CoreIV *iv = [CoreIV iv];
+            
+            iv.isBlack = isBlack;
+            
+            if (isBlack) {
+                
+                iv.backgroundColor = [UIColor colorWithRed:32/255. green:32/255. blue:50/255. alpha:1];
+                
+            }else {
+                
+                iv.backgroundColor = [UIColor whiteColor];
+            }
+            
+            //设置
+            iv.type = type;
+            iv.msgLabel.text = msg;
+            iv.FailBlock = failClickBlock;
+            
+            [view addSubview:iv];
+            
+            [iv autoLayoutFillSuperView];
+            
+        });
+        
+    }
+    
 }
 
 
@@ -113,7 +166,7 @@
     
     __block NSInteger i = 0;
     
-    dispatch_async(dispatch_get_main_queue(), ^{
+    if ([NSThread isMainThread]) {
         for (UIView *subView in view.subviews) {
             if(![subView isKindOfClass:[CoreIV class]]) continue;
             
@@ -128,14 +181,24 @@
             }
             i++;
         }
-    });
-    
-    //    if (i == 0) {
-    //
-    //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    //            [self dismissFromView:view animated:animated];
-    //        });
-    //    }
+    }else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            for (UIView *subView in view.subviews) {
+                if(![subView isKindOfClass:[CoreIV class]]) continue;
+                
+                if(animated){
+                    [UIView animateWithDuration:0.3 animations:^{
+                        subView.alpha=0;
+                    } completion:^(BOOL finished) {
+                        [(CoreIV *)subView dismiss];return;
+                    }];
+                }else{
+                    [(CoreIV *)subView dismiss];break;
+                }
+                i++;
+            }
+        });
+    }
 }
 
 
@@ -147,34 +210,34 @@
 
 -(void)setType:(IVType)type {
     
-    UIColor *tintColor = [UIColor grayColor];
-    CGFloat size = 71;
-    
+    UIColor *tintColor = [UIColor colorWithRed:155/255. green:155/255. blue:155/255. alpha:1];
+    CGFloat size = 28;
+    CGFloat wh = 100;
     UIView *di = nil;
+    
     if(type == IVTypeLoad) {
         
-        DGActivityIndicatorView *di_temp = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallBeat tintColor:tintColor size:50];
+        DGActivityIndicatorView *di_temp = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallBeat tintColor:tintColor size:size];
         
         di = di_temp;
         
     }else {
         
-        //        NSString *imgName = self.isBlack ? @"no_data" : @"CoreIV.bundle/smile_failed";
-        NSString *imgName = @"rabbit";
+        NSString *imgName = nil;
         di = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imgName]];
     }
     
-    //    UIColor *color = self.isBlack ? [UIColor colorWithRed:121/255. green:121/255. blue:121/255. alpha:1] : [UIColor darkGrayColor];
-    //    self.msgLabel.textColor = color;
+
     
     //记录
     self.di = di;
     
     [self.contentView addSubview:di];
+
+    CGFloat x = (wh - size)/2;
+    di.frame = CGRectMake(x, 0, size, size);
     
-    di.bounds = CGRectMake(0, 0, size * 2, size * 2);
-    
-    [di autoLayoutFillSuperView];
+//    [di autoLayoutFillSuperView];
     
     
     if(self.type == IVTypeLoad){
@@ -204,7 +267,3 @@
 }
 
 @end
-
-
-
-

@@ -22,7 +22,7 @@
     [CoreIV showWithType:IVTypeLoad view:self.view msg:nil failClickBlock:nil];
     
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [CoreIV dismissFromView:self.view animated:YES];
+//        [CoreIV dismissFromView:self.view animated:YES];
 //    });
 }
 

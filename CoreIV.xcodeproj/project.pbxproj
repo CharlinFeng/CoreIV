@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8925A1FF1CB4A64700588CE9 /* CoreIV.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8925A1FE1CB4A64700588CE9 /* CoreIV.bundle */; };
+		894DE5EF1F3D577D0069DDE0 /* UIView+CoreListLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 894DE5EE1F3D577D0069DDE0 /* UIView+CoreListLayout.m */; };
 		8980BC571C13D0BE007879D5 /* NewsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8980BC561C13D0BE007879D5 /* NewsTVC.m */; };
 		89D4EAB61C098B0600F81377 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D4EAB51C098B0600F81377 /* main.m */; };
 		89D4EAB91C098B0600F81377 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D4EAB81C098B0600F81377 /* AppDelegate.m */; };
@@ -55,6 +56,8 @@
 
 /* Begin PBXFileReference section */
 		8925A1FE1CB4A64700588CE9 /* CoreIV.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CoreIV.bundle; sourceTree = "<group>"; };
+		894DE5ED1F3D577D0069DDE0 /* UIView+CoreListLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CoreListLayout.h"; sourceTree = "<group>"; };
+		894DE5EE1F3D577D0069DDE0 /* UIView+CoreListLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CoreListLayout.m"; sourceTree = "<group>"; };
 		8980BC551C13D0BE007879D5 /* NewsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsTVC.h; sourceTree = "<group>"; };
 		8980BC561C13D0BE007879D5 /* NewsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsTVC.m; sourceTree = "<group>"; };
 		89D4EAB11C098B0600F81377 /* CoreIV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreIV.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -201,6 +204,8 @@
 				89D4EB351C098DD200F81377 /* Lib */,
 				89D4EB9F1C098DF000F81377 /* CoreIV.h */,
 				89D4EBA01C098DF000F81377 /* CoreIV.m */,
+				894DE5ED1F3D577D0069DDE0 /* UIView+CoreListLayout.h */,
+				894DE5EE1F3D577D0069DDE0 /* UIView+CoreListLayout.m */,
 				89D4EBA21C098F6400F81377 /* CoreIV.xib */,
 			);
 			path = CoreIV;
@@ -396,6 +401,7 @@
 				89D4EB831C098DD300F81377 /* DGActivityIndicatorBallPulseAnimation.m in Sources */,
 				89D4EB9A1C098DD300F81377 /* DGActivityIndicatorTriangleSkewSpinAnimation.m in Sources */,
 				89D4EB911C098DD300F81377 /* DGActivityIndicatorLineScaleAnimation.m in Sources */,
+				894DE5EF1F3D577D0069DDE0 /* UIView+CoreListLayout.m in Sources */,
 				89D4EB861C098DD300F81377 /* DGActivityIndicatorBallScaleAnimation.m in Sources */,
 				89D4EB881C098DD300F81377 /* DGActivityIndicatorBallScaleRippleAnimation.m in Sources */,
 				89D4EAB91C098B0600F81377 /* AppDelegate.m in Sources */,
